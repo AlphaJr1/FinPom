@@ -6,12 +6,17 @@
 //
 
 import SwiftUI
+import Foundation
 
 @main
 struct FinPomApp: App {
+    @StateObject var timerVM = TimerViewModel()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack {
+                HomeView(timerVM: timerVM)
+            }
         }
     }
 }

@@ -30,9 +30,29 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		4B45A7B82D8D59240019E520 /* FinPom */ = {
+		4B35CA202D9E297100762C79 /* FinPom */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = FinPom;
+			sourceTree = "<group>";
+		};
+		4B35CA292D9E2A0100762C79 /* Components */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Components;
+			sourceTree = "<group>";
+		};
+		4B35CA2A2D9E2A0900762C79 /* Utils */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		4B35CA2B2D9E2A0D00762C79 /* ViewModels */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		4B35CA572D9E2E3D00762C79 /* Views */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		4B45A7C92D8D59250019E520 /* FinPomTests */ = {
@@ -75,7 +95,11 @@
 		4B45A7AD2D8D59240019E520 = {
 			isa = PBXGroup;
 			children = (
-				4B45A7B82D8D59240019E520 /* FinPom */,
+				4B35CA572D9E2E3D00762C79 /* Views */,
+				4B35CA2B2D9E2A0D00762C79 /* ViewModels */,
+				4B35CA2A2D9E2A0900762C79 /* Utils */,
+				4B35CA292D9E2A0100762C79 /* Components */,
+				4B35CA202D9E297100762C79 /* FinPom */,
 				4B45A7C92D8D59250019E520 /* FinPomTests */,
 				4B45A7D32D8D59250019E520 /* FinPomUITests */,
 				4B45A7B72D8D59240019E520 /* Products */,
@@ -108,7 +132,11 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				4B45A7B82D8D59240019E520 /* FinPom */,
+				4B35CA202D9E297100762C79 /* FinPom */,
+				4B35CA292D9E2A0100762C79 /* Components */,
+				4B35CA2A2D9E2A0900762C79 /* Utils */,
+				4B35CA2B2D9E2A0D00762C79 /* ViewModels */,
+				4B35CA572D9E2E3D00762C79 /* Views */,
 			);
 			name = FinPom;
 			packageProductDependencies = (
