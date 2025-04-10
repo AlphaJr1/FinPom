@@ -35,7 +35,7 @@ struct HomeView: View {
                         isShowingSetTimer = true
                     }) {
                         Text("Set Timer >")
-                            .foregroundColor(.primary)
+                            .foregroundColor(Color(hex: "#0077B6"))
                             .padding(.top, 4)
                     }
                     .sheet(isPresented: $isShowingSetTimer) {

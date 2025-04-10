@@ -66,22 +66,7 @@ struct StreakView: View {
             }
             .background(Color(red: 0.0, green: 0.47, blue: 0.71))
             .navigationTitle("Activities")
-            .toolbar {
-//                ToolbarItem(placement: .navigationBarTrailing) {
-//                    NavigationLink(destination: TriviaView()) {
-//                        Text("Trivia")
-//                            .font(.subheadline)
-//                            .foregroundColor(.black)
-//                            .padding(.vertical, 6)
-//                            .padding(.horizontal, 12)
-//                            .background(Color.dangerColor)
-//                            .cornerRadius(12)
-//                    }
-//                }
-                ToolbarItem(placement: .navigationBarLeading) {
-                    EmptyView()
-                }
-            }
+            .toolbarBackground(.visible, for: .navigationBar)
         }
         .tint(Color.black)
     }
@@ -110,7 +95,7 @@ struct StreakView: View {
                 .fixedSize(horizontal: false, vertical: true)
         }
         .padding()
-        .background(Color.white)
+        .background(Color(.systemBackground))
         .cornerRadius(10)
     }
     
@@ -171,7 +156,7 @@ struct StreakView: View {
             .frame(height: 150)
         }
         .padding()
-        .background(Color.white)
+        .background(Color(.systemBackground))
         .cornerRadius(10)
     }
     
@@ -200,7 +185,7 @@ struct StreakView: View {
             }
         }
         .padding()
-        .background(Color.white)
+        .background(Color(.systemBackground))
         .cornerRadius(10)
     }
 }
@@ -237,4 +222,3 @@ extension Color {
 #Preview {
     StreakView()
 }
-

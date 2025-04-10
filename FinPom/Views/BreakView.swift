@@ -23,7 +23,7 @@ struct BreakView: View {
     
     @Environment(\.dismiss) private var dismiss
     @Binding var isShowingBreakView: Bool
-    @EnvironmentObject var timerVM: TimerViewModel // Tambahkan ini
+    @EnvironmentObject var timerVM: TimerViewModel
     
     @State private var showStartBreakAlert: Bool = false
     @State private var isNextSessionManual: Bool = false
@@ -76,8 +76,7 @@ struct BreakView: View {
             }
             isShowingBreakView = false
         } else {
-            // Jika tidak ada sesi lagi, kembali ke Home
-            timerVM.stopTimer() // Replace with a valid method if available
+            timerVM.stopTimer()
             isShowingBreakView = false
         }
     }
@@ -110,7 +109,7 @@ struct BreakView: View {
                 VStack(spacing: 8) {
                     Text(trivia.quote)
                         .foregroundColor(.white)
-                        .font(.custom("SF Pro", size: 20))
+                        .font(.custom("SF Pro", size: 18))
                         .bold()
                         .multilineTextAlignment(.center)
                         .frame(maxWidth: .infinity)
@@ -121,7 +120,7 @@ struct BreakView: View {
                     }) {
                         Text("See Why")
                             .font(.custom("SF Pro", size: 20))
-                            .foregroundColor(.white)
+                            .foregroundColor(Color(hex: "#FFD166"))
                             .bold()
                     }
                     .multilineTextAlignment(.center)
@@ -156,7 +155,8 @@ struct BreakView: View {
             }
             .padding(.horizontal, 30)
             
-            GifImage("jeff")
+            
+            GIFView(gifName: "jeff")
                 .frame(width: 100, height: 250)
         }
         .padding(.horizontal, 30)
@@ -236,5 +236,6 @@ struct TriviaDetailView: View {
 
 #Preview {
     BreakView(breakType: .short, isShowingBreakView: .constant(true))
+        .environmentObject(TimerViewModel())
 }
 

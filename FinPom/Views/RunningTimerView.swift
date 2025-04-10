@@ -11,7 +11,7 @@ struct RunningTimerView: View {
 
     @EnvironmentObject var timerVM: TimerViewModel
     @Environment(\.dismiss) var dismiss
-    @State private var backgroundColor: Color = Color("#0077B6")
+    @State private var backgroundColor: Color = Color(.background)
     @State private var transitionID = UUID()
     @State private var isNavigatingToPause = false
     @State private var timerState: TimerState = .running
@@ -72,10 +72,6 @@ struct RunningTimerView: View {
                 .foregroundColor(timerState == .running ? .white : (colorScheme == .dark ? .white : .black))
                 .padding(.top, 8)
 
-            if timerVM.isTestingMode {
-                testingButtons()
-            }
-
             Spacer()
             controlButtons()
             Spacer()
@@ -83,17 +79,17 @@ struct RunningTimerView: View {
         .padding()
         .onAppear {
             if timerVM.isTestingMode {
-                print("✅ Testing Mode Activated")
-                print("⏱️ 1 Menit = 1 Detik berlaku di semua sesi (Focus/Break).")
+                print(">>> Starting in test mode")
             }
             NotificationManager.requestAuthorization()
-            
+
             if timerVM.shouldResumeAfterPause {
                 DispatchQueue.main.async {
                     timerVM.resumeTimer()
                     timerVM.shouldResumeAfterPause = false
                 }
             }
+
             transitionID = UUID()
             guard !timerVM.pomodoroSchedule.isEmpty,
                   timerVM.currentSessionIndex < timerVM.pomodoroSchedule.count else {
@@ -104,9 +100,17 @@ struct RunningTimerView: View {
             let currentSession = timerVM.pomodoroSchedule[timerVM.currentSessionIndex]
             if currentSession == .focus {
                 startCurrentSession()
-                backgroundColor = Color.fromHex("#0077B6")
-                let softNotifTime = TimeInterval(min(60, timerVM.timeRemaining))
-                NotificationManager.scheduleSoftNotificationBeforeBreak(in: softNotifTime)
+                backgroundColor = Color.background
+
+                UNUserNotificationCenter.current().getNotificationSettings { settings in
+                    if settings.authorizationStatus == .authorized {
+                        let softNotifTime = TimeInterval(min(60, timerVM.timeRemaining))
+                        NotificationManager.scheduleSoftNotificationBeforeBreak(in: softNotifTime)
+                        print("✅ Soft notification scheduled \(softNotifTime) seconds before break.")
+                    } else {
+                        print("⚠️ Notification permission not granted.")
+                    }
+                }
             }
         }
         .onChange(of: timerVM.timeRemaining) {
@@ -129,7 +133,6 @@ struct RunningTimerView: View {
         .onChange(of: timerVM.isBreakTimeTriggered) {
             let newValue = timerVM.isBreakTimeTriggered
             if newValue {
-                // Do not show the BreakView immediately; wait for user confirmation.
             }
         }
 
@@ -175,31 +178,17 @@ struct RunningTimerView: View {
         return finalView
     }
 
-    private func testingButtons() -> some View {
-        VStack(spacing: 12) {
-            Button("Skip to Break Session") {
-                print("Testing: Skipping to break session")
-                nextSession()
-            }
-            .padding()
-            .foregroundColor(.white)
-            .background(Color.fromHex("#FFD166"))
-            .cornerRadius(10)
-        }
-        .padding(.top, 20)
-    }
-
     private func controlButtons() -> some View {
         return HStack(spacing: 16) {
             FinPomButton(
                 title: timerState == .paused ? "Resume" : "Pause",
-                backgroundColor: timerState == .paused ? Color.fromHex("#0077B6") : Color.fromHex("#FFD166"),
+                backgroundColor: timerState == .paused ? Color.background : Color.fromHex("#FFD166"),
                 foregroundColor: timerState == .paused ? .white : .black,
                 action: {
                     if timerState == .paused {
                         timerVM.resumeTimer()
                         timerState = .running
-                        backgroundColor = Color.fromHex("#0077B6")
+                        backgroundColor = Color.background
                     } else {
                         timerVM.pauseTimer()
                         timerState = .paused
@@ -316,28 +305,13 @@ private struct TransitionModifier: ViewModifier {
     }
 }
 
-extension Color {
-    init(_ hex: String) {
-        var hexString = hex.trimmingCharacters(in: .whitespacesAndNewlines)
-        if hexString.hasPrefix("#") {
-            hexString.removeFirst()
-        }
-
-        var rgb: UInt64 = 0
-        Scanner(string: hexString).scanHexInt64(&rgb)
-
-        let r = Double((rgb >> 16) & 0xFF) / 255.0
-        let g = Double((rgb >> 8) & 0xFF) / 255.0
-        let b = Double(rgb & 0xFF) / 255.0
-
-        self.init(red: r, green: g, blue: b)
-    }
-}
-
 #Preview {
     let timerVM = TimerViewModel()
     timerVM.selectedTime = 25 * 60
     timerVM.timeRemaining = 25 * 60
+    timerVM.pomodoroSchedule = [.focus, .shortBreak, .focus]
+    timerVM.currentSessionIndex = 0
+
     return RunningTimerView()
         .environmentObject(timerVM)
 }

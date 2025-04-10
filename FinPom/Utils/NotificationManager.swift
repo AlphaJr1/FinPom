@@ -56,6 +56,7 @@ struct NotificationManager {
             }
         }
         triggerHaptic("hard")
+        AudioLoopManager.shared.startLoopingSound()
         print("🔔 Memicu notifikasi break keras dengan suara dan getaran...")
         print("📣 Break notification sent.")
     }
@@ -161,5 +162,9 @@ struct NotificationManager {
         }
 
         triggerHaptic("hard")
+    }
+    
+    static func stopLoopSound() {
+        AudioLoopManager.shared.stopLoopingSound()
     }
 }
