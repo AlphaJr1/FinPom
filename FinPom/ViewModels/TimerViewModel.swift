@@ -189,13 +189,10 @@ class TimerViewModel: ObservableObject {
         }
         
         if currentSession == .focus && !hasScheduledPreBreakNotification {
-            if timeRemaining == 60 {
+            if timeRemaining <= 60 {
                 hasScheduledPreBreakNotification = true
-                print("🔔 SOFT NOTIFICATION: 1 minute remaining before break.")
-                NotificationManager.scheduleSoftNotificationBeforeBreak(in: 1, isTestingMode: isTestingMode)
-
-                let impact = UIImpactFeedbackGenerator(style: .medium)
-                impact.impactOccurred()
+                print("🔔 SOFT NOTIFICATION: triggering soft notification.")
+                // Removed the duplicated call to scheduleSoftNotificationBeforeBreak
             }
         }
         

@@ -35,26 +35,6 @@
 			path = FinPom;
 			sourceTree = "<group>";
 		};
-		4B35CA292D9E2A0100762C79 /* Components */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Components;
-			sourceTree = "<group>";
-		};
-		4B35CA2A2D9E2A0900762C79 /* Utils */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Utils;
-			sourceTree = "<group>";
-		};
-		4B35CA2B2D9E2A0D00762C79 /* ViewModels */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		4B35CA572D9E2E3D00762C79 /* Views */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Views;
-			sourceTree = "<group>";
-		};
 		4B45A7C92D8D59250019E520 /* FinPomTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = FinPomTests;
@@ -95,10 +75,6 @@
 		4B45A7AD2D8D59240019E520 = {
 			isa = PBXGroup;
 			children = (
-				4B35CA572D9E2E3D00762C79 /* Views */,
-				4B35CA2B2D9E2A0D00762C79 /* ViewModels */,
-				4B35CA2A2D9E2A0900762C79 /* Utils */,
-				4B35CA292D9E2A0100762C79 /* Components */,
 				4B35CA202D9E297100762C79 /* FinPom */,
 				4B45A7C92D8D59250019E520 /* FinPomTests */,
 				4B45A7D32D8D59250019E520 /* FinPomUITests */,
@@ -133,10 +109,6 @@
 			);
 			fileSystemSynchronizedGroups = (
 				4B35CA202D9E297100762C79 /* FinPom */,
-				4B35CA292D9E2A0100762C79 /* Components */,
-				4B35CA2A2D9E2A0900762C79 /* Utils */,
-				4B35CA2B2D9E2A0D00762C79 /* ViewModels */,
-				4B35CA572D9E2E3D00762C79 /* Views */,
 			);
 			name = FinPom;
 			packageProductDependencies = (
@@ -424,6 +396,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FinPom/Preview Content\"";
+				DEVELOPMENT_TEAM = W22Q7YGS5W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -452,6 +425,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FinPom/Preview Content\"";
+				DEVELOPMENT_TEAM = W22Q7YGS5W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

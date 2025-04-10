@@ -78,9 +78,6 @@ struct RunningTimerView: View {
         }
         .padding()
         .onAppear {
-            if timerVM.isTestingMode {
-                print(">>> Starting in test mode")
-            }
             NotificationManager.requestAuthorization()
 
             if timerVM.shouldResumeAfterPause {
@@ -102,13 +99,24 @@ struct RunningTimerView: View {
                 startCurrentSession()
                 backgroundColor = Color.background
 
-                UNUserNotificationCenter.current().getNotificationSettings { settings in
-                    if settings.authorizationStatus == .authorized {
-                        let softNotifTime = TimeInterval(min(60, timerVM.timeRemaining))
-                        NotificationManager.scheduleSoftNotificationBeforeBreak(in: softNotifTime)
-                        print("✅ Soft notification scheduled \(softNotifTime) seconds before break.")
-                    } else {
-                        print("⚠️ Notification permission not granted.")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    UNUserNotificationCenter.current().getNotificationSettings { settings in
+                        if settings.authorizationStatus == .authorized {
+                            let safeTime = max(5, min(60, timerVM.timeRemaining - 5))
+                            NotificationManager.scheduleSoftNotificationBeforeBreak(in: safeTime, isTestingMode: timerVM.isTestingMode)
+                            NotificationManager.scheduleHardNotification(
+                                title: "⏸️ Break Time!",
+                                body: "Nice focus! Time to rest for a bit. 🎧",
+                                inSeconds: timerVM.timeRemaining,
+                                identifier: "HARD_NOTIFICATION",
+                                sound: .defaultCritical,
+                                isCritical: true,
+                                isTestingMode: timerVM.isTestingMode
+                            )
+                            print("🔔 Notifications scheduled: soft=\(safeTime), hard=\(timerVM.timeRemaining)")
+                        } else {
+                            print("⚠️ Notification permission not granted.")
+                        }
                     }
                 }
             }
